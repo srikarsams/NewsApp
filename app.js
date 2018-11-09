@@ -3,7 +3,9 @@
 ----------------------------*/
 
 let highlights = [];
+let everything = [];
 let highlighsCardsHolder = document.querySelector('.highlighsCardsHolder'); //Highlights div
+let everythingHolder    = document.querySelector('.everythingHolder'); //Everything div
 let endpoints = {
     theVerge        : 'https://newsapi.org/v2/top-headlines?sources=the-verge&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
     theNextWeb      : 'https://newsapi.org/v2/top-headlines?sources=the-next-web&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
@@ -104,23 +106,23 @@ function everythingHtml(e) {
     fetch(ep)
         .then((data) => data.json())
         .then((news) => {
-            // highlights = news.articles.splice(0,100);
-            console.log(highlights)
-            console.log(news.articles)
+            everything = news
             let html ='',url,imgSrc,title;
-            highlights.articles.forEach((article) => {
+            everything.articles.forEach((article) => {
                 url = article.url;
                 imgSrc = article.urlToImage;
                 title = article.title;
                 html += `
-                <div class="card">
+                <div class="eCard">
                     <img src="${imgSrc}" alt="${title}">
                     <h3><a href="${url}" target="_blank">${title}</a></h3>              
                 </div> 
                 `
-                highlighsCardsHolder.innerHTML = html;
+                everythingHolder.innerHTML = html;
+
             })
         })
+    
 };  
 
 
