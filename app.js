@@ -16,6 +16,18 @@ let endpoints = {
     wired           : 'https://newsapi.org/v2/top-headlines?sources=wired&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
     theHindu        : 'https://newsapi.org/v2/top-headlines?sources=the-hindu&apiKey=d79fdc0cae2443479dc7d282b8279cdc'
 }
+let Eendpoints = {
+    etheVerge        : 'https://newsapi.org/v2/everything?sources=the-verge&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    etheNextWeb      : 'https://newsapi.org/v2/everything?sources=the-next-web&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    ebbcNews         : 'https://newsapi.org/v2/everything?sources=bbc-news&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    etheWallStrt     : 'https://newsapi.org/v2/everything?sources=the-wall-street-journal&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    ebusinessInsider : 'https://newsapi.org/v2/everything?sources=business-insider&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    ecnn             : 'https://newsapi.org/v2/everything?sources=cnn&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    eengadget        : 'https://newsapi.org/v2/everything?sources=engadget&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    etechCrunch      : 'https://newsapi.org/v2/everything?sources=techcrunch&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    ewired           : 'https://newsapi.org/v2/everything?sources=wired&apiKey=d79fdc0cae2443479dc7d282b8279cdc',
+    etheHindu        : 'https://newsapi.org/v2/everything?sources=the-hindu&apiKey=d79fdc0cae2443479dc7d282b8279cdc'
+}
 
 /*---------------------
     HIGHLIGHTS SECTION   
@@ -44,6 +56,9 @@ function highlightsHtml(e) {
             })
         })
 };  
+
+// Populates highlights section with the verge content on load
+highlightsHtml({srcElement:{classList:[0,0,"theVerge"]}}) 
 
 // theVerge Handler
 document.querySelector('.theVerge').addEventListener('click', highlightsHtml);
@@ -74,4 +89,69 @@ document.querySelector('.wired').addEventListener('click', highlightsHtml);
 
 // theHindu Handler
 document.querySelector('.theHindu').addEventListener('click', highlightsHtml);
+
+
+
+
+/*---------------------
+    EVERYTHING SECTION   
+-----------------------*/
+
+// highlight Event Handler
+
+function everythingHtml(e) {
+    let ep = Eendpoints[e.srcElement.classList[2]]
+    fetch(ep)
+        .then((data) => data.json())
+        .then((news) => {
+            // highlights = news.articles.splice(0,100);
+            console.log(highlights)
+            console.log(news.articles)
+            let html ='',url,imgSrc,title;
+            highlights.articles.forEach((article) => {
+                url = article.url;
+                imgSrc = article.urlToImage;
+                title = article.title;
+                html += `
+                <div class="card">
+                    <img src="${imgSrc}" alt="${title}">
+                    <h3><a href="${url}" target="_blank">${title}</a></h3>              
+                </div> 
+                `
+                highlighsCardsHolder.innerHTML = html;
+            })
+        })
+};  
+
+
+
+// theVerge Handler
+document.querySelector('.etheVerge').addEventListener('click', everythingHtml);
+
+// theNextWeb Handler
+document.querySelector('.etheNextWeb').addEventListener('click', everythingHtml);
+
+// bbc eventhandler
+document.querySelector('.ebbcNews').addEventListener('click', everythingHtml);
+
+// bloomberg Handler
+document.querySelector('.etheWallStrt').addEventListener('click', everythingHtml);
+
+// businessInsider Handler
+document.querySelector('.ebusinessInsider').addEventListener('click', everythingHtml);
+
+// cnn Handler
+document.querySelector('.ecnn').addEventListener('click', everythingHtml);
+
+// engadget Handler
+document.querySelector('.eengadget').addEventListener('click', everythingHtml);
+
+// techCrunch Handler
+document.querySelector('.etechCrunch').addEventListener('click', everythingHtml);
+
+// wired Handler
+document.querySelector('.ewired').addEventListener('click', everythingHtml);
+
+// theHindu Handler
+document.querySelector('.etheHindu').addEventListener('click', everythingHtml);
 
